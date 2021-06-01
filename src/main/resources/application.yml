@@ -1,0 +1,24 @@
+server:
+  port: 1509
+  
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:1503/eureka
+  instance:
+    prefer-ip-address: true
+      
+spring:
+  application:
+    name: usk-gateway
+  cloud:
+    gateway:
+      routes:
+      - id: ecommerce
+        uri: lb://ecommerce-Service
+        predicates:
+        - Path=/ecommerce/**
+      - id: icicibank
+        uri: lb://icicibank-Service
+        predicates:
+        - Path=/icicibank/**
